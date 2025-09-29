@@ -1,0 +1,14 @@
+# Node stuff
+node_modules/
+npm-debug.log
+package-lock.json
+
+# Postman stuff
+collection.json
+environment.json
+
+# Reports
+newman/
+*.html
+*.xml
+*.junit
