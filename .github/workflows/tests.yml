@@ -43,3 +43,9 @@ jobs:
           newman run collection.json -e environment.json -r cli,html \
             --env-var "API_KEY=${{ secrets.OPENWEATHER_API_KEY }}" \
             --env-var "BASE_URL=${{ secrets.OPENWEATHER_BASE_URL }}"
+
+      - name: Upload Newman Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: newman-report
+          path: newman-report.html
