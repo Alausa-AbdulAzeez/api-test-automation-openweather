@@ -12,10 +12,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "18"
 
@@ -31,13 +31,6 @@ jobs:
           "https://api.getpostman.com/collections/${{ secrets.POSTMAN_COLLECTION_UID }}" \
           --output collection.json
 
-      - name: Download Postman Environment
-        run: |
-          curl --location \
-          --header "X-Api-Key: ${{ secrets.POSTMAN_API_KEY }}" \
-          "https://api.getpostman.com/environments/${{ secrets.POSTMAN_ENV_UID }}" \
-          --output environment.json
-
       - name: Run API Tests
         run: |
           newman run collection.json -e environment.json -r cli,html \
@@ -45,7 +38,7 @@ jobs:
             --env-var "BASE_URL=${{ secrets.OPENWEATHER_BASE_URL }}"
 
       - name: Upload Newman Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: newman-report
           path: newman-report.html
