@@ -33,7 +33,7 @@ jobs:
 
       - name: Run API Tests
         run: |
-          newman run collection.json -e environment.json -r cli,html \
+          newman run collection.json -r cli,html \
             --env-var "API_KEY=${{ secrets.OPENWEATHER_API_KEY }}" \
             --env-var "BASE_URL=${{ secrets.OPENWEATHER_BASE_URL }}"
 
