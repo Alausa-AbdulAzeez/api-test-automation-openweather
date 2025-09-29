@@ -1,0 +1,40 @@
+name: API Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Download Postman Collection
+        run: |
+          curl --location \
+          --header "X-Api-Key: ${{ secrets.POSTMAN_API_KEY }}" \
+          "https://api.getpostman.com/collections/${{ secrets.POSTMAN_COLLECTION_UID }}" \
+          --output collection.json
+
+      - name: Download Postman Environment
+        run: |
+          curl --location \
+          --header "X-Api-Key: ${{ secrets.POSTMAN_API_KEY }}" \
+          "https://api.getpostman.com/environments/${{ secrets.POSTMAN_ENV_UID }}" \
+          --output environment.json
+
+      - name: Run API Tests
+        run: newman run collection.json -e environment.json -r cli,html
