@@ -77,9 +77,9 @@ newman run collection.json -e environment.json -r cli,html
 
 ##  Example Use Cases
 
-* Validate weather data by city name, city ID, and coordinates.
+* Validate weather data by city name, city ID.
 * Handle invalid inputs (wrong city, missing/invalid API key).
-* Test edge scenarios such as empty queries and rate-limiting.
+* Test edge scenarios such as empty queries.
 
 ---
 
